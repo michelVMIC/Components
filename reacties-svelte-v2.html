@@ -1,0 +1,90 @@
+<script>
+  let values = ["Value 1", "Value 2", "Value 3", "Value 4"];
+  let currentIndex = 0;
+
+  function nextValue() {
+    currentIndex = (currentIndex + 1) % values.length;
+  }
+
+  function prevValue() {
+    currentIndex = (currentIndex - 1 + values.length) % values.length;
+  }
+
+  setInterval(() => {
+    const reactiesPara = document.querySelectorAll(".reacties-sectie p");
+    nextValue();
+    for (let reactieItem of reactiesPara) {
+      reactieItem.classList.add("slide");
+      setTimeout(() => {
+        reactieItem.classList.remove("slide");
+      }, 1500);
+    }
+  }, 5000);
+</script>
+
+<div class="reacties-sectie">
+  <button on:click="{prevValue}">&larr;</button>
+  <div class="reactie-values">
+    <p>{values[currentIndex]}</p>
+    <p>{values[currentIndex]}</p>
+  </div>
+  <button on:click="{nextValue}">&rarr;</button>
+</div>
+
+<style>
+  .reacties-sectie button {
+    background-color: #fff;
+    border: 0px;
+    padding: 0.5rem 1rem;
+    font-size: 1.8rem;
+    margin: 0 0.5rem;
+    cursor: pointer;
+  }
+
+  .reactie-values {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .reacties-sectie {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 1rem;
+    border: 1px solid #fff;
+    padding: 1.5rem;
+    max-width: 420px;
+    margin: 0 auto;
+    border-radius: 15px;
+    box-shadow: 0px 1px 5px 1px darkgrey;
+  }
+
+  .reacties-sectie p {
+    font-size: 1.5rem;
+    margin: 0 1rem;
+  }
+
+  .slide {
+    -webkit-animation: slide 0.5s forwards;
+    -webkit-animation-delay: 1s;
+    animation: slide 0.5s forwards;
+    animation-delay: 1s;
+    color: #fff;
+    animation: 2s slide-right 2s forwards;
+    transform: translateX(-100%);
+    transition: all 2s;
+  }
+
+  @-webkit-keyframes slide {
+    100% {
+      left: 0;
+    }
+  }
+
+  @keyframes slide {
+    100% {
+      left: 0;
+    }
+  }
+</style>
